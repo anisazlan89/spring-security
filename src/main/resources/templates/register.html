@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Create account</title>
+    <link rel="stylesheet" th:href="@{/css/register.css}" href="/css/auth.css">
+</head>
+<body>
+<div class="auth-wrap">
+    <div class="auth-top"></div>
+    <div class="auth-bottom"></div>
+
+    <main class="auth-card" role="main" aria-labelledby="reg-title">
+        <h1 id="reg-title" class="auth-title">Create your account</h1>
+
+
+        <form class="auth-form" th:action="@{/register}"  method="post" novalidate>
+            <!-- Email -->
+            <label class="field">
+                <span class="label-text">Email</span>
+                <input type="email" name="email" id="email" placeholder="you@example.com" required>
+            </label>
+
+            <!-- Password -->
+            <label class="field">
+                <span class="label-text">Password</span>
+                <div class="password-field">
+                    <input type="password" name="password" id="password" minlength="8" placeholder="Minimum 8 characters" required>
+                    <button type="button" class="peek" aria-label="Show password" data-target="password">Show</button>
+                </div>
+                <div class="hint" id="pw-hint">Use 8+ characters with letters & numbers.</div>
+            </label>
+
+            <!-- Confirm Password -->
+            <label class="field">
+                <span class="label-text">Confirm password</span>
+                <div class="password-field">
+                    <input type="password" name="confirmPassword" id="confirmPassword" minlength="8" required>
+                    <button type="button" class="peek" aria-label="Show confirm password" data-target="confirmPassword">Show</button>
+                </div>
+            </label>
+
+            <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Create account</button>
+        </form>
+
+        <p class="auth-links">
+            <a th:href="@{/login}" href="/login">Already have an account?</a>
+        </p>
+    </main>
+</div>
+
+<script>
+    // show/hide password
+    document.querySelectorAll('.peek').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-target');
+        const input = document.getElementById(id);
+        const isPw = input.type === 'password';
+        input.type = isPw ? 'text' : 'password';
+        btn.textContent = isPw ? 'Hide' : 'Show';
+      });
+    });
+
+    // simple confirm-password check
+    const pw = document.getElementById('password');
+    const cpw = document.getElementById('confirmPassword');
+    const msg = document.getElementById('matchMsg');
+    const submit = document.getElementById('submitBtn');
+
+    function validateMatch(){
+      if (!pw.value || !cpw.value) {
+        msg.textContent = '';
+        submit.disabled = false;
+        return;
+      }
+      if (pw.value !== cpw.value) {
+        msg.textContent = 'Passwords do not match';
+        submit.disabled = true;
+      } else {
+        msg.textContent = '';
+        submit.disabled = false;
+      }
+    }
+    pw.addEventListener('input', validateMatch);
+    cpw.addEventListener('input', validateMatch);
+</script>
+</body>
+</html>

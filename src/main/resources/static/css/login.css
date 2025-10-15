@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+*,*:before,*:after{box-sizing:border-box}
+
+body{
+  min-height:100vh;
+  font-family: 'Raleway', sans-serif;
+}
+
+.container{
+  position:absolute;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+
+  &:hover,&:active{
+    .top, .bottom{
+      &:before, &:after{
+        margin-left: 200px;
+        transform-origin: -200px 50%;
+        transition-delay:0s;
+      }
+    }
+
+    .center{
+      opacity:1;
+      transition-delay:0.2s;
+    }
+  }
+}
+
+.top, .bottom{
+  &:before, &:after{
+    content:'';
+    display:block;
+    position:absolute;
+    width:200vmax;
+    height:200vmax;
+    top:50%;left:50%;
+    margin-top:-100vmax;
+    transform-origin: 0 50%;
+    transition:all 0.5s cubic-bezier(0.445, 0.05, 0, 1);
+    z-index:10;
+    opacity:0.65;
+    transition-delay:0.2s;
+  }
+}
+
+.top{
+  &:before{transform:rotate(45deg);background:#e46569;}
+  &:after{transform:rotate(135deg);background:#ecaf81;}
+}
+
+.bottom{
+  &:before{transform:rotate(-45deg);background:#60b8d4;}
+  &:after{transform:rotate(-135deg);background:#3745b5;}
+}
+
+.center{
+  position:absolute;
+  width:400px;
+  height:400px;
+  top:50%;left:50%;
+  margin-left:-200px;
+  margin-top:-200px;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding:30px;
+  opacity:0;
+  transition:all 0.5s cubic-bezier(0.445, 0.05, 0, 1);
+  transition-delay:0s;
+  color:#333;
+
+  input{
+    width:100%;
+    padding:15px;
+    margin:5px;
+    border-radius:1px;
+    border:1px solid #ccc;
+    font-family:inherit;
+  }
+}
+
+/* Base button */
+.btn{
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  padding: 10px 14px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform .06s ease, box-shadow .15s ease, background-color .15s ease, border-color .15s ease, color .15s ease;
+  user-select: none;
+  text-decoration: none; /* so <a class="btn"> works too */
+}
+
+/* Sizes */
+.btn-sm{ padding: 8px 12px; font-size: 13px; border-radius: 8px; }
+.btn-lg{ padding: 12px 16px; font-size: 15px; border-radius: 12px; }
+.btn-block{ width: 100%; }
+
+/* Variants */
+.btn-primary{
+  background: #0f172a;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(15,23,42,.18);
+}
+.btn-primary:hover{ background:#111827; transform: translateY(-1px); }
+.btn-primary:active{ transform: translateY(0); box-shadow: 0 2px 10px rgba(15,23,42,.25); }
+.btn-primary:focus-visible{ outline: 0; box-shadow: 0 0 0 4px rgba(15,23,42,.15); }
+
+.btn-outline{
+  background: transparent;
+  color: #0f172a;
+  border-color: #cbd5e1;
+}
+.btn-outline:hover{ background:#f1f5f9; border-color:#94a3b8; }
+.btn-outline:focus-visible{ outline: 0; box-shadow: 0 0 0 4px rgba(148,163,184,.3); }
+
+.btn-subtle{
+  background:#f8fafc;
+  color:#0f172a;
+  border-color:#e2e8f0;
+}
+.btn-subtle:hover{ background:#eef2f7; }
+
+/* Disabled */
+.btn:disabled,
+.btn[aria-busy="true"]{
+  opacity: .65;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Loading spinner (uses aria-busy or .is-loading) */
+.btn .spinner{
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,.5);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin{ to{ transform: rotate(360deg); } }
+
+/* Outline/subtle spinner color fix */
+.btn-outline .spinner,
+.btn-subtle .spinner{ border: 2px solid rgba(15,23,42,.25); border-top-color: currentColor; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .btn{ transition: none; }
+  .btn .spinner{ animation-duration: 1.2s; }
+}
+
+/* Auth helper links (tiny, muted) */
+.auth-links{
+  margin-top: 10px;
+  text-align: center;          /* change to right/left as needed */
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.auth-links a{
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color .15s ease, text-decoration-color .15s ease;
+  outline: none;
+}
+.auth-links a:hover{ color: #0f172a; text-decoration-color: currentColor; }
+.auth-links a:focus-visible{
+  /* subtle focus ring for accessibility */
+  box-shadow: 0 0 0 4px rgba(15,23,42,.12);
+  border-radius: 6px;
+}
+
+/* Inline separator “·” */
+.auth-links .sep{ padding: 0 .4rem; color: #cbd5e1; }
+
+/* Optional layout variants */
+.auth-links--right{ text-align: right; }
+.auth-links--left{ text-align: left; }
+
+/* Make them look like button-links (optional) */
+.link-chip{
+  display:inline-block; padding:4px 8px; border-radius:8px;
+  text-decoration:none; border:1px solid transparent;
+}
+.link-chip:hover{ background:#f1f5f9; border-color:#e5e7eb; }
