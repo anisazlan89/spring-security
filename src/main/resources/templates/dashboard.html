@@ -11,7 +11,7 @@
 <div class="container py-5">
     <div class="card shadow-sm">
         <div class="card-body">
-            <h1 class="h3">Welcome, 👋</h1>
+            <h1 class="h3">Welcome,<span th:text="${email}"></span>👋</h1>
             <p class="text-muted mb-4">You’re signed in. This is your simple dashboard.</p>
 
             <form th:action="@{/logout}" method="post">
