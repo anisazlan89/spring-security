@@ -1,6 +1,9 @@
 
 ![Login](assets/login.png)
 
-![Login](assets/welcome.png)
+![Dashboard](assets/welcome.png)
 
 ![Register](assets/register.png)
+
+![Database](assets/database.png)
+
