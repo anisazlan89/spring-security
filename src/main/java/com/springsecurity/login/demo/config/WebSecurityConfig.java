@@ -45,8 +45,6 @@ public class WebSecurityConfig {
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .usernameParameter("email")
-                        .passwordParameter("pwd")
                         .defaultSuccessUrl("/dashboard", true)
                         .permitAll()
                 )
@@ -68,23 +66,5 @@ public class WebSecurityConfig {
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
-    /*@Bean
-    UserDetailsService userDetailsService(UsersRepository repo) {
-        return email -> repo.findByEmail(email)
-                .map(u -> org.springframework.security.core.userdetails.User
-                        .withUsername(u.getEmail())
-                        .password(u.getPwd())
-                        .authorities("ROLE_USER")
-                        .build())
-                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
-    }
-    @Bean
-    DaoAuthenticationProvider daoAuthenticationProvider(UserDetailsService uds,
-                                                        PasswordEncoder encoder) {
-        DaoAuthenticationProvider p = new DaoAuthenticationProvider(uds);
-        p.setPasswordEncoder(encoder);
-        return p;
-    }*/
 
 }
