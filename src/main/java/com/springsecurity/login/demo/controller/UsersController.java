@@ -28,14 +28,14 @@ public class UsersController {
         if (binding.hasErrors() || user.getPwd() == null || user.getPwd().length() < 8) {
             return "register";
         }
-        boolean isSaved = usersService.createNewUser(user);
 
+        boolean isSaved = usersService.createNewUser(user);
 
         if (isSaved){
             redirectAttributes.addFlashAttribute("msg", "Registration Successful! Please login.");
             return "redirect:/login?register=true";
         }
-        binding.reject("save.failed", "Unable to create user");
+        /*binding.reject("save.failed", "Unable to create user");*/
         return "register";
         }
 
